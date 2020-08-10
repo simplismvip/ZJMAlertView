@@ -1,0 +1,6 @@
+framework module ZJMAlertView {
+  umbrella header "ZJMAlertView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,29 @@
+PODS:
+  - SnapKit (4.2.0)
+  - ZJMAlertView (0.1.0):
+    - SnapKit
+    - ZJMKit
+  - ZJMKit (0.1.0)
+
+DEPENDENCIES:
+  - ZJMAlertView (from `../`)
+  - ZJMKit (from `../../ZJMKit`)
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  ZJMAlertView:
+    :path: "../"
+  ZJMKit:
+    :path: "../../ZJMKit"
+
+SPEC CHECKSUMS:
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  ZJMAlertView: 19b326bce8774437739cc9cf11b32719c37cdeb6
+  ZJMKit: 3ea438ea5cb0a9638cc9f3ba97089a5a65680148
+
+PODFILE CHECKSUM: a83284e232a73d8f8a61c62ce6c131bf6bd1c94c
+
+COCOAPODS: 1.8.4
