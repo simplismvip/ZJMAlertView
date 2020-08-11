@@ -6,15 +6,71 @@
 //
 
 import Foundation
+
+extension DispatchQueue {
+    private static var _onceToken = [String]()
+    open class func once(token: String = "\(#file):\(#function):\(#line)", block: ()->Void) {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        if _onceToken.contains(token) { return }
+        _onceToken.append(token)
+        block()
+    }
+}
+
 extension UIViewController {
+    public typealias jmCallBlock = (AnyObject?)->Void
+    private struct storeKeys {
+        static var event_key = "storeKeys.left"
+        static var right_event_key = "storeKeys.right"
+    }
+    
+    // 添加计算属性，用来绑定 AssociatedKeys
+    private var eventBlock:jmCallBlock? {
+        get { return objc_getAssociatedObject(self, &storeKeys.event_key) as? jmCallBlock }
+        set { objc_setAssociatedObject(self, &storeKeys.right_event_key, newValue, .OBJC_ASSOCIATION_RETAIN) }
+    }
+    
+    // 添加计算属性，用来绑定 AssociatedKeys
+    private var rightEventBlock:jmCallBlock? {
+        get { return objc_getAssociatedObject(self, &storeKeys.right_event_key) as? jmCallBlock }
+        set { objc_setAssociatedObject(self, &storeKeys.event_key, newValue, .OBJC_ASSOCIATION_RETAIN) }
+    }
+    
+    open func jmBarButtonItem(left:Bool = true,title:String?,image:UIImage?,action:@escaping jmCallBlock) {
+        if left {
+            rightEventBlock = action
+            if let image = image {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(jmLeftAction))
+            }else {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(jmLeftAction))
+            }
+        }else {
+            eventBlock = action
+            if let image = image {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(jmRightAction))
+            }else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(jmRightAction))
+            }
+        }
+    }
+    
+    @objc func jmRightAction(){
+        rightEventBlock?("right" as AnyObject)
+    }
+    
+    @objc func jmLeftAction(){
+        eventBlock?("left" as AnyObject)
+    }
+    
     /// 弹窗，带输入
-    public func jm_showAlert(_ title:String?, _ msg:String?, _ placeHolder:String, handler:((_ toast:String?)->())?) {
+    open func jmShowAlert(_ title:String?, _ msg:String?, _ placeHolder:String, handler:((_ toast:String?)->())?) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertController.Style.alert)
         let sureAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { (action) in
             if let text = alert.textFields?.first?.text {
                 if let handle = handler { handle(text) }
             }else{
-                self.jm_showAlert("请重新输入", "输入为空", false, nil)
+                self.jmShowAlert("请重新输入", "输入为空", false, nil)
             }
         }
         alert.addTextField { textField in
@@ -31,7 +87,7 @@ extension UIViewController {
     }
     
     /// 弹窗，不带输入
-    public func jm_showAlert(_ title:String?, _ msg:String?, _ showCancle:Bool, _ handler:((_ toast:String?)->())?) {
+    open func jmShowAlert(_ title:String?, _ msg:String?, _ showCancle:Bool, _ handler:((_ toast:String?)->())?) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertController.Style.alert)
         let sureAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { (action) in
             if let handle = handler { handle(nil) }
@@ -45,7 +101,7 @@ extension UIViewController {
     }
     
     /// 分享弹窗
-    public func jm_shareImageToFriends(shareID:String?,image:UIImage?,completionHandler:@escaping (_ activityType:UIActivity.ActivityType?, _ completed:Bool?)->()) {
+    open func jmShareImageToFriends(shareID:String?,image:UIImage?,completionHandler:@escaping (_ activityType:UIActivity.ActivityType?, _ completed:Bool?)->()) {
         var items = [Any]()
         if let appname = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
             items.append("#\(appname)#")

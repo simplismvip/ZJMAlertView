@@ -8,10 +8,8 @@
 import UIKit
 
 extension UIView {
-    open var jm_x:CGFloat {
-        get {
-            return self.frame.origin.x
-        }
+    open var jmX:CGFloat {
+        get { return self.frame.origin.x }
         set (newX) {
             var frame = self.frame
             frame.origin.x = newX
@@ -19,10 +17,8 @@ extension UIView {
         }
     }
     
-    open var jm_y:CGFloat {
-        get {
-            return self.frame.origin.y;
-        }
+    open var jmY:CGFloat {
+        get { return self.frame.origin.y; }
         set (newY) {
             var frame = self.frame
             frame.origin.y = newY
@@ -30,10 +26,8 @@ extension UIView {
         }
     };
     
-    open var jm_width:CGFloat {
-        get {
-            return self.frame.size.width;
-        }
+    open var jmWidth:CGFloat {
+        get { return self.frame.size.width; }
         set (newWidth) {
             var frame = self.frame
             frame.size.width = newWidth
@@ -42,10 +36,8 @@ extension UIView {
         
     };
     
-    open var jm_height:CGFloat {
-        get {
-            return self.frame.size.height;
-        }
+    open var jmHeight:CGFloat {
+        get { return self.frame.size.height; }
         set (newHeight) {
             var frame = self.frame
             frame.size.height = newHeight
@@ -53,10 +45,8 @@ extension UIView {
         }
     };
     
-    open var jm_size:CGSize {
-        get {
-            return self.frame.size;
-        }
+    open var jmSize:CGSize {
+        get { return self.frame.size; }
         set (newSize) {
             var frame = self.frame
             frame.size = newSize
@@ -64,10 +54,8 @@ extension UIView {
         }
     };
     
-    open var jm_origin:CGPoint {
-        get {
-            return self.frame.origin;
-        }
+    open var jmOrigin:CGPoint {
+        get { return self.frame.origin; }
         set (newOrigin) {
             var frame = self.frame
             frame.origin = newOrigin
@@ -75,10 +63,8 @@ extension UIView {
         }
     };
     
-    open var jm_centerX:CGFloat {
-        get {
-            return self.center.x;
-        }
+    open var jmCenterX:CGFloat {
+        get { return self.center.x; }
         set (newCenterX) {
             var center = self.center
             center.x = newCenterX
@@ -86,10 +72,8 @@ extension UIView {
         }
     };
     
-    open var jm_centerY:CGFloat {
-        get {
-            return self.center.y;
-        }
+    open var jmCenterY:CGFloat {
+        get { return self.center.y; }
         set (newCenterY) {
             var center = self.center
             center.y = newCenterY
@@ -97,31 +81,29 @@ extension UIView {
         }
     };
     
-    open var jm_maxX:CGFloat {
-        get {
-            return self.jm_x+self.jm_width;
-        }
+    open var jmMaxX:CGFloat {
+        get { return self.jmX+self.jmWidth; }
         set (newMaxX) {
             var temp = self.frame
-            temp.origin.x = newMaxX-self.jm_width
+            temp.origin.x = newMaxX-self.jmWidth
             self.frame = temp
         }
     };
     
-    open var maxY:CGFloat {
-        get {
-            return self.jm_y+self.jm_height;
-        }
+    open var jmMaxY:CGFloat {
+        get { return self.jmY+self.jmHeight; }
         set (newMaxY) {
             var temp = self.frame
-            temp.origin.x = newMaxY-self.jm_height
+            temp.origin.x = newMaxY-self.jmHeight
             self.frame = temp
         }
     };
 }
 
+// MARK： -- 常用方法 -- 
 extension UIView {
-    open func jmCcreenCapture() -> UIImage? {
+    /// View截图
+    open func jmScreenCapture() -> UIImage? {
         let scale = UIScreen.main.scale
         let width = bounds.size.width*scale
         let height = bounds.size.height*scale
@@ -140,7 +122,6 @@ extension UIView {
         return nImage
     }
     
-    
     // [.topLeft, .topRight]
     /// 切圆角，可自定义切哪个角
     open func jmRectCorner(by corners:UIRectCorner = [.topLeft, .topRight]) {
@@ -150,27 +131,28 @@ extension UIView {
         layer.mask = shaper
     }
     
-    /// 获取当前展示的Controller
-    open func jmFristShowView() -> UIView? {
-        guard let window = UIApplication.shared.delegate?.window else { return nil }
-        guard var topVC = window?.rootViewController else { return nil }
-        while true {
-            if let newVc = topVC.presentedViewController {
-                topVC = newVc
-            }else if topVC.isKind(of: UINavigationController.self) {
-                let navVC = topVC as! UINavigationController
-                if let topNavVC = navVC.topViewController {
-                    topVC = topNavVC
-                }
-            }else if topVC.isKind(of: UITabBarController.self) {
-                let tabVC = topVC as! UITabBarController
-                if let selTabVC = tabVC.selectedViewController {
-                    topVC = selTabVC
-                }
-            }else{
-                break
-            }
+    /// 添加阴影，暂时支撑top和bottom
+    open func jmAddShadow(_ color: UIColor, posion:JMPosition = .top, radius:CGFloat = 5, opacity:Float = 0.3) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = CGSize.zero
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        
+        let width = bounds.size.width
+        let height = bounds.size.height
+
+        var shadowRect:CGRect
+        switch posion {
+        case .top:
+            shadowRect = CGRect(x: 0, y: 0, width: width, height: 2)
+        case .bottom:
+            shadowRect = CGRect(x: 0, y: height-radius/2, width: width, height: 1)
+        case .left:
+            shadowRect = CGRect(x: 0, y: height, width: 1, height: height)
+        case .right:
+            shadowRect = CGRect(x: width-radius, y: height, width: 1, height: height)
         }
-        return topVC.view
+        let path = UIBezierPath(rect: shadowRect)
+        layer.shadowPath = path.cgPath
     }
 }

@@ -7,7 +7,12 @@
 
 import UIKit
 
-class JMTools {
+open class JMTools {
+    /// 获取document路径Url
+    open class func jmDescpath()-> URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+    
     /// 获取document路径
     open class func jmDocuPath() ->String? {
         let documentDir = FileManager.SearchPathDirectory.documentDirectory
@@ -86,4 +91,45 @@ class JMTools {
         }
     }
     
+    /// 获取当前展示的Controller
+    open class func jmShowTopVc() -> UIViewController? {
+        guard let window = UIApplication.shared.keyWindow else { return nil }
+        guard var topVC = window.rootViewController else { return nil }
+        while true {
+            if let newVc = topVC.presentedViewController {
+                topVC = newVc
+            }else if topVC.isKind(of: UINavigationController.self) {
+                let navVC = topVC as? UINavigationController
+                if let topNavVC = navVC?.topViewController {
+                    topVC = topNavVC
+                }
+            }else if topVC.isKind(of: UITabBarController.self) {
+                let tabVC = topVC as? UITabBarController
+                if let selTabVC = tabVC?.selectedViewController {
+                    topVC = selTabVC
+                }
+            }else{
+                break
+            }
+        }
+        return topVC
+    }
+    
+    /// 取出某个对象的地址
+    open class func jmGetAnyObjectMemoryAddress(object: AnyObject) -> String {
+        let str = Unmanaged<AnyObject>.passUnretained(object).toOpaque()
+        return String(describing: str)
+    }
+    
+    /// 对比两个对象的地址是否相同
+    open class func jmEquateable(object1: AnyObject, object2: AnyObject) -> Bool {
+        let str1 = jmGetAnyObjectMemoryAddress(object: object1)
+        let str2 = jmGetAnyObjectMemoryAddress(object: object2)
+        
+        if str1 == str2 {
+            return true
+        } else {
+            return false
+        }
+    }
 }

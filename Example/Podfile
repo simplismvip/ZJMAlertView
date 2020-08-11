@@ -2,8 +2,7 @@ use_frameworks!
 
 target 'ZJMAlertView_Example' do
   pod 'ZJMAlertView', :path => '../'
-  pod 'ZJMKit', :path=>'../../ZJMKit'
-
+  pod 'ZJMKit'
   target 'ZJMAlertView_Tests' do
     inherit! :search_paths
 

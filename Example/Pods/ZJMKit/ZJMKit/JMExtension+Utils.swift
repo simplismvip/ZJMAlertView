@@ -9,21 +9,48 @@ import Foundation
 
 extension UIFont {
     open var medium:UIFont {
-        return UIFont(name: "PingFangSC-Medium", size: 23)!
+        if let font = UIFont(name: "PingFangSC-Medium", size: 23) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: 23)
     }
     
-    open class func regular(_ size:CGFloat) -> UIFont? {
-        return UIFont(name: "PingFangSC-Regular", size: size)
+    open class func jmRegular(_ size:CGFloat) -> UIFont {
+        if let font = UIFont(name: "PingFangSC-Regular", size: size) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: size)
     }
     
-    open class func medium(_ size:CGFloat) -> UIFont? {
-        return UIFont(name: "PingFangSC-Medium", size: size)
+    open class func jmAvenir(_ size:CGFloat) -> UIFont {
+        if let font = UIFont(name: "Avenir-Light", size: size) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: size)
     }
     
-    open class func Bold(_ size:CGFloat) -> UIFont? {
-        return UIFont(name: "Helvetica-Bold", size: size)
+    open class func jmMedium(_ size:CGFloat) -> UIFont {
+        if let font = UIFont(name: "PingFangSC-Medium", size: size) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: size)
     }
     
+    open class func jmBold(_ size:CGFloat) -> UIFont {
+        if let font = UIFont(name: "Helvetica-Bold", size: size) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: size)
+    }
+}
+
+extension Int {
+    /// 获取随机数
+    public static func jmRandom(from: Int, to: Int) -> Int {
+        guard from < to else { fatalError("`from` MUST be less than `to`") }
+        let delta = UInt32(to + 1 - from)
+        return from + Int(arc4random_uniform(delta))
+    }
 }
 
 extension CGRect {
@@ -32,37 +59,8 @@ extension CGRect {
     }
 }
 
-extension Array {
-    public mutating func removeObject<T:Equatable>(_ model:T, inArray:inout [T]) {
-        var findIndex:Int?
-        for (index,item) in inArray.enumerated() {
-            if item == model {
-                findIndex = index
-                break
-            }
-        }
-        
-        if let index = findIndex {
-            inArray.remove(at: index)
-        }
-    }
-    
-    public mutating func deleteObject<T:Equatable>(_ model:T, inArray:inout [T]) {
-        var findIndex:Int?
-        for (index,item) in inArray.enumerated() {
-            if item == model {
-                findIndex = index
-                break
-            }
-        }
-        
-        if let index = findIndex {
-            inArray.remove(at: index)
-        }
-    }
-}
-
 extension Int {
+    /// 数字转时间
     public var jmCurrentTime:String {
         if self > 3600 {
             return "\(self/3600)时\(self/60%60)分\(self%60)秒"
@@ -80,22 +78,24 @@ extension Int {
 }
 
 extension Double {
-    public var jm_date:Date {
+    /// date
+    public var jmDate:Date {
         return Date(timeIntervalSince1970: self)
     }
 }
 
 extension Date {
-    public static func jm_createTspString() -> String {
+    /// 时间戳字符串
+    public static func jmCreateTspString() -> String {
         let tmp = Date(timeIntervalSinceNow: 0).timeIntervalSince1970*1000
         return String(tmp).components(separatedBy: ".")[0]
     }
-    
-    public static var jm_currentTime:TimeInterval {
+    /// 当前时间戳
+    public static var jmCurrentTime:TimeInterval {
         return Date(timeIntervalSinceNow: 0).timeIntervalSince1970
     }
-    
-    public func jm_isSameDay() -> Bool {
+    /// 是否是同一天
+    public func jmIsSameDay() -> Bool {
         let calendar = Calendar.current
         let unit: Set<Calendar.Component> = [.day,.month,.year]
         let nowComps = calendar.dateComponents(unit, from: Date())
@@ -104,8 +104,8 @@ extension Date {
             (selfCmps.month == nowComps.month) &&
             (selfCmps.day == nowComps.day)
     }
-    
-    public func jm_isYesterday() -> Bool {
+    /// 是否是昨天
+    public func jmIsYesterday() -> Bool {
         let calendar = Calendar.current
         let unit:Set<Calendar.Component> = [.day,.month,.year]
         let nowComps = calendar.dateComponents(unit, from: Date())
@@ -115,12 +115,28 @@ extension Date {
             (selfCmps.month == nowComps.month) &&
             (count == 1)
     }
-    
-    public func jm_isSameYear() -> Bool {
+    /// 是否是同一年
+    public func jmIsSameYear() -> Bool {
         let calendar = Calendar.current
         let nowComps = calendar.component(.year, from: Date())
         let selfComps = calendar.component(.year, from: self)
         return (nowComps == selfComps)
+    }
+}
+
+extension NotificationCenter {
+    /// 添加通知
+    open class func jmObserver(_ observer: Any, selector: Selector, name: String, object: Any? = nil) {
+        NotificationCenter.default.addObserver(observer, selector: selector, name: NSNotification.Name(rawValue: name), object: object)
+    }
+    /// 发送通知
+    open class func jmPost(name: String, object: Any? = nil) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: object)
+    }
+    
+    public typealias jmNotiBlock = (AnyObject?)->Void
+    private struct storeKeys {
+        static var notify = "storeKeys.notify"
     }
 }
 
