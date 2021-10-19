@@ -14,9 +14,9 @@ class JMAlertViewLoading: UIView, JMAlertCompProtocol {
     private let bottomLayer = CAShapeLayer()
     private let leftLayer = CAShapeLayer()
     private let rightLayer = CAShapeLayer()
-    private var h_height:CGFloat = 60.0
-    private var r_radius:CGFloat = 60.0/7
-    private var translatLen:CGFloat = 60.0/7
+    private var h_height: CGFloat = 60.0
+    private var r_radius: CGFloat = 60.0/7
+    private var translatLen: CGFloat = 60.0/7
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(backView)
@@ -25,7 +25,7 @@ class JMAlertViewLoading: UIView, JMAlertCompProtocol {
         backView.layer.addSublayer(bottomLayer)
         backView.layer.addSublayer(rightLayer)
         
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.groupTableViewBackground
         layer.cornerRadius = 10
     }
     
@@ -67,7 +67,7 @@ class JMAlertViewLoading: UIView, JMAlertCompProtocol {
         addRotationAniToLayer(backView.layer)
     }
     
-    private func configLayer(_ center:CGPoint,_ color:UIColor,_ layer:CAShapeLayer) {
+    private func configLayer(_ center:CGPoint,_ color: UIColor,_ layer:CAShapeLayer) {
         layer.opacity = 1.0;
         layer.fillColor = color.cgColor;
         layer.frame = CGRect(x: center.x - r_radius, y: center.y - r_radius, width: r_radius * 2, height: r_radius * 2)
@@ -117,7 +117,6 @@ class JMAlertViewLoading: UIView, JMAlertCompProtocol {
 }
 
 class JMAlertInfoView: UIView, JMAlertCompProtocol {
-    
     private var title = UILabel(frame: CGRect.zero)
     private var subTitle = UILabel(frame: CGRect.zero)
     private var leftBtn = UIButton(type: .system)

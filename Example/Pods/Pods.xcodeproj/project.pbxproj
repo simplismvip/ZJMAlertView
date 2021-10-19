@@ -1093,6 +1093,37 @@
 			};
 			name = Debug;
 		};
+		AFA800F1E388C6B8D5ECEA720B53D4CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6E4C582C89AFADFB18981AA71C4F2DF /* ZJMAlertView.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ZJMAlertView/ZJMAlertView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView.modulemap";
+				PRODUCT_MODULE_NAME = ZJMAlertView;
+				PRODUCT_NAME = ZJMAlertView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		AFB3D01786659D2FEDD90F24BF6C2DC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F2379F2D4335812260850FDD9C68E825 /* Pods-ZJMAlertView_Tests.release.xcconfig */;
@@ -1161,37 +1192,6 @@
 			};
 			name = Release;
 		};
-		C8EA35CC2B4226D7F3D9F67CD7B76BA2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6E4C582C89AFADFB18981AA71C4F2DF /* ZJMAlertView.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ZJMAlertView/ZJMAlertView-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView.modulemap";
-				PRODUCT_MODULE_NAME = ZJMAlertView;
-				PRODUCT_NAME = ZJMAlertView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		CA9FA41BC86BF49888AB63FEFD868812 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E9DE0AFF5D1219CA0388159098F4583C /* SnapKit.release.xcconfig */;
@@ -1257,38 +1257,6 @@
 			};
 			name = Debug;
 		};
-		D9D1A24801E48C590CA3D79D34FEF40C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3951D97A4BE9EE006F38752AD68C3457 /* ZJMAlertView.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ZJMAlertView/ZJMAlertView-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView.modulemap";
-				PRODUCT_MODULE_NAME = ZJMAlertView;
-				PRODUCT_NAME = ZJMAlertView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		EED087938FB906EFA200F073656C8031 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 027D152084C1891CCDD4DF68E0B58B75 /* ZJMKit.debug.xcconfig */;
@@ -1353,6 +1321,38 @@
 			};
 			name = Debug;
 		};
+		FBEF845AD1D59E27E9E957D02C3E4077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3951D97A4BE9EE006F38752AD68C3457 /* ZJMAlertView.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ZJMAlertView/ZJMAlertView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZJMAlertView/ZJMAlertView.modulemap";
+				PRODUCT_MODULE_NAME = ZJMAlertView;
+				PRODUCT_NAME = ZJMAlertView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1404,8 +1404,8 @@
 		863B25BCFCC4E3004BE7353B630A1722 /* Build configuration list for PBXNativeTarget "ZJMAlertView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C8EA35CC2B4226D7F3D9F67CD7B76BA2 /* Debug */,
-				D9D1A24801E48C590CA3D79D34FEF40C /* Release */,
+				AFA800F1E388C6B8D5ECEA720B53D4CB /* Debug */,
+				FBEF845AD1D59E27E9E957D02C3E4077 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

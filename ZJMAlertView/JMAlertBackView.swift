@@ -10,7 +10,7 @@ import SnapKit
 import ZJMKit
 
 open class JMAlertBackView: UIView {
-    var container:JMAlertCompProtocol!
+    var container: JMAlertCompProtocol!
     var close = UIButton(type: .system)
     let bkgView = UIView()
     override init(frame: CGRect) {
@@ -28,7 +28,7 @@ open class JMAlertBackView: UIView {
         let view = super.hitTest(point, with: event)
         if (view?.isEqual(self))! {
             return nil
-        }else {
+        } else {
             return view
         }
     }
@@ -79,7 +79,7 @@ open class JMAlertBackView: UIView {
     }
     
     // 开始布局
-    func setupView(size:CGSize) {
+    func setupView(size: CGSize) {
         switch container.alertModel?.sheetType {
         case .top?:
             container.snp.makeConstraints { (make) in
@@ -115,7 +115,16 @@ open class JMAlertBackView: UIView {
                 make.center.equalTo(snp.center)
                 make.size.equalTo(size)
             }
-            
+        case .topRight?:
+            container.snp.remakeConstraints { (make) in
+                make.right.equalTo(snp.right).offset(-10)
+                make.size.equalTo(size)
+                if #available(iOS 11.0, *) {
+                    make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(10)
+                }else{
+                    make.top.equalTo(snp.top).offset(10)
+                }
+            }
         default:
             print("top")
         }
@@ -129,5 +138,7 @@ open class JMAlertBackView: UIView {
         }
     }
     
-    required public init?(coder aDecoder: NSCoder) { fatalError("") }
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("")
+    }
 }

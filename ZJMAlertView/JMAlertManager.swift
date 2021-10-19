@@ -10,19 +10,19 @@ import SnapKit
 
 open class JMAlertManager {
     private var backView = JMAlertBackView()
-    public init(superView:UIView?,item:JMAlertModel) {
-        addSubViews(superView:superView)
+    public init(superView: UIView?, item: JMAlertModel) {
+        addSubViews(superView: superView)
         if let container = getContainer(item: item) {
             backView.container = container
             backView.container.alertModel = item
             backView.backgroundColor = item.bkgColor
             backView.addSubview(backView.container)
-        }else{
+        } else {
             assert(false, item.className + "⚠️⚠️⚠️⚠️⚠️未实现或未遵循协议")
         }
     }
     
-    public init(superView:UIView?, container:JMAlertCompProtocol, item:JMAlertModel) {
+    public init(superView: UIView?, container: JMAlertCompProtocol, item: JMAlertModel) {
         addSubViews(superView:superView)
         backView.container = container
         backView.container.alertModel = item
@@ -30,14 +30,14 @@ open class JMAlertManager {
         backView.addSubview(backView.container)
     }
     
-    private func addSubViews(superView:UIView?) {
+    private func addSubViews(superView: UIView?) {
         if let view = superView {
             backView.frame = view.bounds
             view.addSubview(backView)
             backView.snp.makeConstraints { (make) in
                 make.edges.equalTo(view)
             }
-        }else {
+        } else {
             guard let window = UIApplication.shared.keyWindow else { return }
             backView.frame = window.bounds
             window.addSubview(backView)
@@ -47,7 +47,7 @@ open class JMAlertManager {
         }
     }
     
-    private func getContainer(item:JMAlertModel) -> JMAlertCompProtocol? {
+    private func getContainer(item: JMAlertModel) -> JMAlertCompProtocol? {
         func classFromString(name: String) -> JMAlertCompProtocol? {
             if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String? {
                 let classStringName = appName + "." + name
@@ -61,7 +61,7 @@ open class JMAlertManager {
         return classFromString(name: item.className)
     }
     
-    open func resetItem(item:JMAlertModel) {
+    open func resetItem(item: JMAlertModel) {
         backView.container.alertModel = item
     }
     
@@ -84,6 +84,10 @@ open class JMAlertManager {
         DispatchQueue.main.async {
             self.backView.container.remove(self.backView)
         }
+    }
+    
+    deinit {
+        print("⚠️⚠️⚠️类\(NSStringFromClass(type(of: self)))已经释放")
     }
 }
 
@@ -112,16 +116,11 @@ extension JMAlertManager {
     public static func jmShowAnimation(_ superView:UIView?, showClose:Bool = false) {
         let loading = JMAlertViewLoading()
         let sheetItem = JMAlertModel(className: "JMAlertViewLoading")
+        sheetItem.bkgColor = UIColor.clear
         let sheetManager = JMAlertManager(superView:superView, container: loading, item: sheetItem)
         sheetItem.sheetType = .center
         sheetItem.showClose = showClose
         sheetManager.update()
-        
-        // 设置10秒超时时间
-        let deadline = DispatchTime.now()
-        DispatchQueue.main.asyncAfter(deadline: deadline + 10) {
-            jmHide(superView)
-        }
     }
     
     public static func jmShowNotify(_ superView:UIView?) {
@@ -132,7 +131,7 @@ extension JMAlertManager {
         
     }
     
-    public static func jmShowAlert(_ superView:UIView?, action:((JMAlertItem)->Void)?) {
+    public static func jmShowAlert(_ superView:UIView?, action:((JMAlertItem?)->Void)?) {
         let loading = JMAlertInfoView()
         let sure = JMAlertItem(title: "确定", icon: nil)
         sure.action = { action?($0) }

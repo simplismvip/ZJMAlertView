@@ -11,7 +11,7 @@ import Foundation
 public protocol JMAlertCompProtocol:UIView {
 //    associatedtype container
     /// 移除Alert，非必须实现，有默认实现
-    func remove(_ backView:JMAlertBackView)
+    func remove(_ backView: JMAlertBackView)
     /// 布局Alert，必须实现
     func updateView() -> CGSize
     /// 数据，非必须实现

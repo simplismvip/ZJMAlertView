@@ -1,6 +1,6 @@
 PODS:
   - SnapKit (4.2.0)
-  - ZJMAlertView (0.1.0):
+  - ZJMAlertView (0.1.1):
     - SnapKit
     - ZJMKit
   - ZJMKit (0.1.7)
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  ZJMAlertView: 78b4a1d5abfd297fe2bd5d2bb550509868e38746
+  ZJMAlertView: 6a7fab733c74e28f239bc110dec1db346e03450f
   ZJMKit: 7d988c615cd2dea7077ce825cdca6766e38933bd
 
 PODFILE CHECKSUM: 5f4d905308c423059e5a41d673b3534fd73342b3
